@@ -151,7 +151,7 @@
         if (mode == "dicom") {
           dicom(nrrd);
         } else {
-          models.forEach(show);
+          data.models.forEach(show);
         }
       
         
@@ -171,12 +171,11 @@
       }
 
       function show (model) {
-          const modelName = data.model[0];
-          const modelColor = data.model[1];
-          const modelOpacity = data.model[2];
-          data.model[3] ??= data.model[0];
-          const modelFile = vtkFolder + data.model[3] + ".vtk";
-
+          const modelName = model[0];
+          const modelColor = model[1];
+          const modelOpacity = model[2];
+          model[3] ??= model[0];
+          const modelFile = vtkFolder + model[3] + ".vtk";
           const meshMaterial = new THREE.MeshLambertMaterial({
           wireframe: false,
           side: THREE.DoubleSide,
