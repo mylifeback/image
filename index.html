@@ -94,7 +94,7 @@
 
 
       async function loadJSON(folder) {
-        const response = await fetch("https://mylifeback.github.io/large/model/" + folder + "/data.json");
+        const response = await fetch(folder + "/data.json");
         const jsonString = await response.json();
         console.log(jsonString); 
         data = JSON.parse(jsonString);
