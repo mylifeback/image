@@ -49,18 +49,17 @@
       import { TrackballControls } from "./src/TrackballControls.js";
       import { VTKLoader } from "./src/VTKLoader.js";
       import { NRRDLoader } from './src/NRRDLoader.js';
-      import {models, names, select} from "./select/data.js";
+      // import {models, names, select} from "./select/data.js";
       import {links} from "./select/link.js";
 
 
       let stats, gui, controls, camera, scene, renderer;
-
       const title = document.getElementById("title");
       const topic = document.getElementById("topic");
-      title.textContent = names.title;
-      topic.textContent = names.topic;
-      const file = "https://mylifeback.github.io/large/dicom/" + select.file + ".nrrd";
-      let folder = "https://mylifeback.github.io/large/model/" + select.folder + "/";
+      let vtkFolder;
+      let nrrd;
+
+
 
       // // Register the Service Worker
       // registerSW();
@@ -75,24 +74,36 @@
       //   }
       // }
 
-      console.log(models);
-      console.log(names);
-      console.log(select);
-      console.log(links);
+
 
       const query = window.location.search;
       if (query) {
         const link = query.slice(1);
-        console.log (link);
-        folder = "https://mylifeback.github.io/large/model/" + links[link] + "/";
-        init();
         if (!links.hasOwnProperty(link)) {
           noPatient();
+        } else {
+          console.log ("query parameter is = " + link);
+          const folder = "https://mylifeback.github.io/large/model/" + links[link] + "/";
+          console.log ("folder = " + folder);
+
+          loadJSON(folder);
         }
       }
-      else {
+
+
+      async function loadJSON(folder) {
+        const response = await fetch("https://mylifeback.github.io/large/model/" + folder + "/data.json");
+        const data = await response.json();
+        console.log(data); 
+        // models, names, select
+
+        nrrd = "https://mylifeback.github.io/large/dicom/" + data.file + ".nrrd";
+        vtkFolder = "https://mylifeback.github.io/large/model/" + data.folder + "/";
+        title.textContent = data.title;
+        topic.textContent = data.topic;
         init();
       }
+
 
 
       function init() {
@@ -158,7 +169,7 @@
           const modelColor = model[1];
           const modelOpacity = model[2];
           model[3] ??= model[0];
-          const modelFile = folder + model[3] + ".vtk";
+          const modelFile = vtkFolder + model[3] + ".vtk";
 
           const meshMaterial = new THREE.MeshLambertMaterial({
           wireframe: false,
@@ -207,7 +218,7 @@
 
       function dicom (file) {
         const loader = new NRRDLoader();
-				loader.load( file, function ( volume ) {
+				loader.load( nrrd, function ( volume ) {
 
 					//box helper to see the extend of the volume
 					const geometry = new THREE.BoxGeometry( volume.xLength, volume.yLength, volume.zLength );
@@ -279,8 +290,6 @@
       }
 
       function noPatient () {
-        // const title = document.getElementById("title");
-        // const topic = document.getElementById("topic");
         console.log("not found");
         title.textContent = "unknown link";
         topic.textContent = "No link found for this patient";
