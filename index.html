@@ -60,6 +60,7 @@
       let nrrd;
       let mode; // "dicom" or "model"
       let data;
+      let link;
 
 
 
@@ -80,7 +81,7 @@
 
       const query = window.location.search;
       if (query) {
-        const link = query.slice(1);
+        link = query.slice(1);
         if (!links.hasOwnProperty(link)) {
           noPatient();
         } else {
