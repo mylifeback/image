@@ -97,7 +97,8 @@
         const response = await fetch(folder + "/data.json");
         const jsonString = await response.json();
         console.log(jsonString); 
-        data = JSON.parse(jsonString);
+        // data = JSON.parse(jsonString);
+        data = jsonString;
         // models, names, select
 
         mode = data.mode;
