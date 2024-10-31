@@ -50,13 +50,17 @@
       import { VTKLoader } from "./src/VTKLoader.js";
       import { NRRDLoader } from './src/NRRDLoader.js';
       import {models, names, select} from "./select/data.js";
+      import {links} from "./select/link.js";
+
 
       let stats, gui, controls, camera, scene, renderer;
 
-      document.getElementById("title").textContent = names.title;
-      document.getElementById("topic").textContent = names.topic;
+      const title = document.getElementById("title");
+      const topic = document.getElementById("topic");
+      title.textContent = names.title;
+      topic.textContent = names.topic;
       const file = "https://mylifeback.github.io/large/dicom/" + select.file + ".nrrd";
-      const folder = "https://mylifeback.github.io/large/model/" + select.folder + "/";
+      let folder = "https://mylifeback.github.io/large/model/" + select.folder + "/";
 
       // // Register the Service Worker
       // registerSW();
@@ -74,7 +78,22 @@
       console.log(models);
       console.log(names);
       console.log(select);
-      init();
+      console.log(links);
+
+      const query = window.location.search;
+      if (query) {
+        const link = query.slice(1);
+        console.log (link);
+        folder = "https://mylifeback.github.io/large/model/" + links[link] + "/";
+        init();
+        if (!links.hasOwnProperty(link)) {
+          noPatient();
+        }
+      }
+      else {
+        init();
+      }
+
 
       function init() {
         camera = new THREE.PerspectiveCamera(
@@ -257,6 +276,14 @@
 					} );
           animate();
 				} );
+      }
+
+      function noPatient () {
+        // const title = document.getElementById("title");
+        // const topic = document.getElementById("topic");
+        console.log("not found");
+        title.textContent = "Not Found";
+        topic.textContent = "No link found for this patient";
       }
 
 
