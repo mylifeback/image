@@ -201,7 +201,7 @@
           geometry.computeVertexNormals();
           const mesh = new THREE.Mesh(geometry, meshMaterial);
           scene.add(mesh);
-          console.log(geometry.position);
+          console.log(mesh.position);
           const visibilityControl = {
             visible: true,
             opacity: modelOpacity,
