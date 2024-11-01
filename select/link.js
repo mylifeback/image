@@ -6,5 +6,5 @@ const links = {
 };
 
 
-
+// link name :  folder name at "large"
 export {links};
