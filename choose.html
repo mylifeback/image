@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, user-scalable=yes, minimum-scale=1.0, maximum-scale=5.0"
+    />
+    <link type="text/css" rel="stylesheet" href="./src/main.css" />
+    <link rel="icon" type="image/x-icon" href="./src/favicon.ico" />
+    <!-- Meta Tags required for
+        Progressive Web App -->
+    <meta name="apple-mobile-web-app-status-bar" content="#aa7700" />
+    <meta name="theme-color" content="black" />
+    <!-- Manifest File link -->
+    <!-- <link rel="manifest" href="./manifest.json" /> -->
+    <!-- error with permission policy header: origin trial controlled feature not enabled: 'interest-cohort' -->
+    <meta
+      http-equiv="Permissions-Policy"
+      content="interest-cohort=(), user-id=()"
+    />
+    <title id="title">title</title>
+  </head>
+
+  <body>
+    <div id="topic">topic</div>
+    <a id="anchor">go ahead</a>
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "./src/three.js",
+          "three/addons/": "./src/",
+          "three/addons/lib/": "./src/",
+          "three/addons/controls/": "./src/",
+          "three/addons/loaders/": "./src/",
+          "three/addons/jsm/libs/": "./src/",
+          "./libs/": "./src/",
+          "./misc/": "./src/",
+          "./src/": "./src/",
+          "./select/": "./select/"
+        }
+      }
+    </script>
+
+    <script type="module">
+
+
+      let stats, gui, controls, camera, scene, renderer;
+      const title = document.getElementById("title");
+      const topic = document.getElementById("topic");
+      let vtkFolder;
+      let nrrd;
+      let mode; // "dicom" or "model"
+      let data;
+      let link;
+
+
+
+      // // Register the Service Worker
+      // registerSW();
+
+      // async function registerSW() {
+      //   if ("serviceWorker" in navigator) {
+      //     try {
+      //       await navigator.serviceWorker.register("./serviceworker.js");
+      //     } catch (e) {
+      //       console.log("SW registration failed");
+      //     }
+      //   }
+      // }
+
+
+
+      const query = window.location.search;
+      if (query) {
+        link = query.slice(1);
+        if (!links.hasOwnProperty(link)) {
+          noPatient();
+        } else {
+          console.log ("query parameter is = " + link);
+          const folder = "https://mylifeback.github.io/large/model/" + links[link] + "/";
+          console.log ("folder = " + folder);
+
+          loadJSON(folder);
+        }
+      } else {
+        noPatient();
+      }
+
+
+      async function loadJSON(folder) {
+        const response = await fetch(folder + "/data.json");
+        const jsonString = await response.json();
+        console.log(jsonString); 
+        // data = JSON.parse(jsonString);
+        data = jsonString;
+        // models, names, select
+
+        mode = data.mode;
+        nrrd = "https://mylifeback.github.io/large/dicom/" + links[link] + ".nrrd";
+        vtkFolder = "https://mylifeback.github.io/large/model/" + links[link] + "/";
+        title.textContent = data.title;
+        topic.textContent = data.topic;
+        init();
+      }
+
+
+      function noPatient () {
+        console.log("not found");
+        title.textContent = "unknown link";
+        topic.textContent = "No link found for this patient";
+      }
+
+
+
+    </script>
+  </body>
+</html>
