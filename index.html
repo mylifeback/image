@@ -203,8 +203,8 @@
           scene.add(mesh);
           // console.log(mesh.position);
 
-          const targetV3 = new THREE.Vector3();
-          mesh.geometry.boundingBox.getCenter(targetV3);
+          const t = new THREE.Vector3();
+          t.x = (mesh.geometry.boundingBox.x[0] + mesh.geometry.boundingBox.x[1])/2;
           console.log(targetV3);
 
           const visibilityControl = {
