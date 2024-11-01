@@ -48,11 +48,14 @@
       let stats, gui, controls, camera, scene, renderer;
       const title = document.getElementById("title");
       const topic = document.getElementById("topic");
+      const anchor = document.getElementById("anchor");
       let vtkFolder;
       let nrrd;
       let mode; // "dicom" or "model"
       let data;
       let link;
+
+      anchor.setAttribute("href", "https://mylifeback.github.io/image/index.html?chanwingkei");
 
 
 
@@ -71,45 +74,45 @@
 
 
 
-      const query = window.location.search;
-      if (query) {
-        link = query.slice(1);
-        if (!links.hasOwnProperty(link)) {
-          noPatient();
-        } else {
-          console.log ("query parameter is = " + link);
-          const folder = "https://mylifeback.github.io/large/model/" + links[link] + "/";
-          console.log ("folder = " + folder);
+      // const query = window.location.search;
+      // if (query) {
+      //   link = query.slice(1);
+      //   if (!links.hasOwnProperty(link)) {
+      //     noPatient();
+      //   } else {
+      //     console.log ("query parameter is = " + link);
+      //     const folder = "https://mylifeback.github.io/large/model/" + links[link] + "/";
+      //     console.log ("folder = " + folder);
 
-          loadJSON(folder);
-        }
-      } else {
-        noPatient();
-      }
-
-
-      async function loadJSON(folder) {
-        const response = await fetch(folder + "/data.json");
-        const jsonString = await response.json();
-        console.log(jsonString); 
-        // data = JSON.parse(jsonString);
-        data = jsonString;
-        // models, names, select
-
-        mode = data.mode;
-        nrrd = "https://mylifeback.github.io/large/dicom/" + links[link] + ".nrrd";
-        vtkFolder = "https://mylifeback.github.io/large/model/" + links[link] + "/";
-        title.textContent = data.title;
-        topic.textContent = data.topic;
-        init();
-      }
+      //     loadJSON(folder);
+      //   }
+      // } else {
+      //   noPatient();
+      // }
 
 
-      function noPatient () {
-        console.log("not found");
-        title.textContent = "unknown link";
-        topic.textContent = "No link found for this patient";
-      }
+      // async function loadJSON(folder) {
+      //   const response = await fetch(folder + "/data.json");
+      //   const jsonString = await response.json();
+      //   console.log(jsonString); 
+      //   // data = JSON.parse(jsonString);
+      //   data = jsonString;
+      //   // models, names, select
+
+      //   mode = data.mode;
+      //   nrrd = "https://mylifeback.github.io/large/dicom/" + links[link] + ".nrrd";
+      //   vtkFolder = "https://mylifeback.github.io/large/model/" + links[link] + "/";
+      //   title.textContent = data.title;
+      //   topic.textContent = data.topic;
+      //   init();
+      // }
+
+
+      // function noPatient () {
+      //   console.log("not found");
+      //   title.textContent = "unknown link";
+      //   topic.textContent = "No link found for this patient";
+      // }
 
 
 
