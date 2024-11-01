@@ -43,10 +43,10 @@
         console.log (link);
         const hyperlink = "https://mylifeback.github.io/image/index.html?" + link ;
         console.log (hyperlink);
-        // const element = document.createElement();
-        // element.innerHTML = `<a href=${hyperlink}> ${link}</a>`;
-        // document.append(element);
-        document.append(`<a href=${hyperlink}> ${link}</a>`);
+        const element = document.createElement();
+        element.innerHTML = `<a href=${hyperlink}> ${link}</a>`;
+        document.appendChild(element);
+        // document.append(`<a href=${hyperlink}> ${link}</a>`);
       }
 
 
