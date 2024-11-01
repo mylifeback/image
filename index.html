@@ -207,9 +207,9 @@
           mesh.geometry.computeBoundingBox();
           // boundingBox = mesh.geometry.boundingBox;
           const t = new THREE.Vector3();
-          t.x = (mesh.geometry.boundingBox.x[0] + mesh.geometry.boundingBox.x[1])/2;
-          t.y = (mesh.geometry.boundingBox.y[0] + mesh.geometry.boundingBox.y[1])/2;
-          t.z = (mesh.geometry.boundingBox.z[0] + mesh.geometry.boundingBox.z[1])/2;
+          t.x = (mesh.geometry.boundingBox.getCenter.x[0] + mesh.geometry.boundingBox.getCenter.x[1])/2;
+          t.y = (mesh.geometry.boundingBox.getCenter.y[0] + mesh.geometry.boundingBox.getCenter.y[1])/2;
+          t.z = (mesh.geometry.boundingBox.getCenter.z[0] + mesh.geometry.boundingBox.getCenter.z[1])/2;
           console.log(targetV3);
           //*****************
 
