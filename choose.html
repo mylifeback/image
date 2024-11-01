@@ -41,7 +41,9 @@
 
       for (const link in links) {
         console.log (link);
-        console.log ("https://mylifeback.github.io/large/model/" + link + "/");
+        const hyperlink = "https://mylifeback.github.io/image/index.html?" + link ;
+        console.log (hyperlink);
+        document.append(`<a href=${hyperlink}> ${link}>`);
       }
 
 
