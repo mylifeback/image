@@ -1,5 +1,5 @@
 const links = {
-  chanwingkei: "meningiomaFalx",
+  kei: "meningiomaFalx",
   peter: "aneurysmCavernous",
   craniotomy: "craniotomy"
   
