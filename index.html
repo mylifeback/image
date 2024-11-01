@@ -204,6 +204,8 @@
 
           //***************
           // console.log(mesh.position);
+          mesh.geometry.updateMatrixWorld();
+          mesh.geometry.updateMatrix();
           mesh.geometry.computeBoundingBox();
           // boundingBox = mesh.geometry.boundingBox;
           const t = new THREE.Vector3();
