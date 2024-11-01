@@ -202,6 +202,11 @@
           const mesh = new THREE.Mesh(geometry, meshMaterial);
           scene.add(mesh);
           // console.log(mesh.position);
+
+          const targetV3 = new Vector3();
+          mesh.geometry.boundingBox.getCenter(targetV3);
+          console.log(targetV3);
+
           const visibilityControl = {
             visible: true,
             opacity: modelOpacity,
