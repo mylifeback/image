@@ -19,6 +19,17 @@
       http-equiv="Permissions-Policy"
       content="interest-cohort=(), user-id=()"
     />
+
+
+    <style>
+      a , div {
+        display: block;
+        width: 100px;
+        height: 30px;
+      }
+
+
+    </style>
     <title id="title">title</title>
   </head>
 
@@ -32,12 +43,12 @@
 
       const title = document.getElementById("title");
       const topic = document.getElementById("topic");
-      const anchor = document.getElementById("anchor");
+      // const anchor = document.getElementById("anchor");
+      // anchor.setAttribute("href", "https://mylifeback.github.io/image/index.html?chanwingkei");
 
 
-
-      anchor.setAttribute("href", "https://mylifeback.github.io/image/index.html?chanwingkei");
-
+      title.textContent = "pick";
+      topic.textContent = "choose one of the following images";
 
       for (const link in links) {
         console.log (link);
